@@ -5,7 +5,33 @@ import StarOnGithub from '@bay/landing-ui/components/StarOnGithub.astro';
 <nav class="nav" id="top">
   <div class="container nav-inner">
     <a class="logo" href="#top">
-      <span class="logo-mark">J</span>
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 64 64" width="30" height="30" role="img" aria-label="JobAgent">
+          <defs>
+            <linearGradient id="navLogoGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#16a34a" />
+              <stop offset="1" stop-color="#0f766e" />
+            </linearGradient>
+          </defs>
+          <rect x="3" y="3" width="58" height="58" rx="15" fill="url(#navLogoGrad)" />
+          <path
+            d="M39 15 V35 C39 43.5 33 48.5 26 48.5 C20.5 48.5 16.5 44.5 16.5 39.5"
+            fill="none"
+            stroke="#fff"
+            stroke-width="6.5"
+            stroke-linecap="round"
+          />
+          <circle cx="47" cy="47" r="10.5" fill="#fff" />
+          <path
+            d="M42 47 L45.8 50.8 L52.5 43.2"
+            fill="none"
+            stroke="#16a34a"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </span>
       JobAgent
     </a>
     <ul class="nav-links">
