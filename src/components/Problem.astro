@@ -1,32 +1,39 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
 <section id="problem">
   <div class="container">
-    <span class="eyebrow">理念 · 问题</span>
-    <h2>AI 时代，传统招聘链路正在失效</h2>
-    <p class="sub">简历是自我描述，面试能被训练——真正能证明能力的，是留下过的行为痕迹。</p>
+    <span class="eyebrow">{t('problem.eyebrow')}</span>
+    <h2>{t('problem.title')}</h2>
+    <p class="sub">{t('problem.sub')}</p>
     <div class="problem-grid">
       <div class="problem-card">
         <div class="ic ic-red">📄</div>
-        <h3>简历可批量生成</h3>
-        <p>AI 能写、能美化、能造假简历。HR 筛简历，筛的其实是"文案能力"，不是工作能力。</p>
+        <h3>{t('problem.card1.title')}</h3>
+        <p>{t('problem.card1.desc')}</p>
       </div>
       <div class="problem-card">
         <div class="ic ic-amber">🎤</div>
-        <h3>面试能被"面经"训练</h3>
-        <p>八股题与题库被反复练习，面试表现与真实工作能力越来越脱节。</p>
+        <h3>{t('problem.card2.title')}</h3>
+        <p>{t('problem.card2.desc')}</p>
       </div>
       <div class="problem-card">
         <div class="ic ic-blue">🤖</div>
-        <h3>GitHub 也被 AI 污染</h3>
-        <p>一键生成的模板仓库、刷的 star、灌水的 commit——只看表面数据，一样会被骗。</p>
+        <h3>{t('problem.card3.title')}</h3>
+        <p>{t('problem.card3.desc')}</p>
       </div>
       <div class="problem-card">
         <div class="ic ic-slate">🔍</div>
-        <h3>筛选成本越来越高</h3>
-        <p>简历量爆炸 + 虚假信息泛滥，招聘方的验证成本和时间成本急剧上升。</p>
+        <h3>{t('problem.card4.title')}</h3>
+        <p>{t('problem.card4.desc')}</p>
       </div>
     </div>
     <div class="takeaway">
-      <b>结论：</b>问题的解药不是"更多简历数据"，而是<b style="color:#4ade80;">可验证的真实工作证据</b>——这正是 GitHub 提供的东西，也是 JobAgent 要做的事。
+      <b>{lang === 'zh' ? '结论：' : 'Bottom line:'}</b>{t('problem.takeaway')}
     </div>
   </div>
 </section>
