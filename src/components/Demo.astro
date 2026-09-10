@@ -1,0 +1,67 @@
+<section id="demo">
+  <div class="container">
+    <div class="demo-box">
+      <span class="eyebrow">内测预约</span>
+      <h2 style="font-size:28px;">输入你的 GitHub 用户名</h2>
+      <p class="sub" style="margin:10px auto 0;font-size:15px;">产品开发中——提交后即加入内测队列（演示版，记录仅保存在你的浏览器本地）。</p>
+      <form class="demo-form" id="demo-form">
+        <input
+          type="text"
+          id="gh-input"
+          placeholder="例如：torvalds"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="GitHub 用户名"
+        />
+        <button type="submit">预约内测</button>
+      </form>
+      <div class="demo-tip" id="demo-tip">正式版将在这里展示你的仓库能力画像</div>
+      <div class="demo-result" id="demo-result"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('demo-form');
+  const input = document.getElementById('gh-input');
+  const result = document.getElementById('demo-result');
+  const tip = document.getElementById('demo-tip');
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = input?.value.trim();
+    if (!name) {
+      if (result) {
+        result.style.display = 'block';
+        result.style.color = '#92400e';
+        result.style.background = '#fffbeb';
+        result.style.borderColor = '#fcd34d';
+        result.textContent = '请输入 GitHub 用户名';
+      }
+      return;
+    }
+    try {
+      const key = 'jobagent_waitlist';
+      const list = JSON.parse(localStorage.getItem(key) || '[]');
+      if (!list.includes(name)) list.push(name);
+      localStorage.setItem(key, JSON.stringify(list));
+      if (tip) tip.style.display = 'none';
+      if (result) {
+        result.style.display = 'block';
+        result.style.color = '#14532d';
+        result.style.background = '#f0fdf4';
+        result.style.borderColor = '#bbf7d0';
+        result.textContent = `已记录 @${name}，你已加入内测队列（第 ${list.length} 位）。`;
+      }
+      if (input) input.value = '';
+    } catch {
+      if (result) {
+        result.style.display = 'block';
+        result.style.color = '#92400e';
+        result.style.background = '#fffbeb';
+        result.style.borderColor = '#fcd34d';
+        result.textContent = '浏览器不支持本地存储，请换个浏览器试试。';
+      }
+    }
+  });
+</script>

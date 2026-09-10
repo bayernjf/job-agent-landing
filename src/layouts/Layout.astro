@@ -1,0 +1,42 @@
+---
+import Nav from '../components/Nav.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'JobAgent · 以 GitHub 为桥梁的智能招聘平台',
+  description = 'AI 时代，让招聘回到真实工作证据。JobAgent 把 GitHub 仓库分析成可验证的能力画像，服务企业与求职者。',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0b1220" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <div class="container foot">
+        <div>© 2026 JobAgent · 产品构想讨论稿 · 开发中</div>
+        <div>
+          <a href="#top">回到顶部</a>
+          <span style="margin:0 8px;color:var(--border)">·</span>
+          <span>以 GitHub 为桥梁 · 真实性验证 · 双向闭环</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
