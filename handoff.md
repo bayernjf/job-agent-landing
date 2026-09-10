@@ -4,24 +4,43 @@
 
 ## 项目概况
 JobAgent 落地页：以 GitHub 为桥梁的智能招聘平台（把仓库分析成可信、可解释、可复核的能力画像，服务企业与求职者）。
-Astro 5 静态站点（`output: 'static'`），简体中文单语，无 i18n、无 React island；Demo 区用 localStorage
+Astro 5 静态站点（`output: 'static'`）；Demo 区用 localStorage
 （key：`jobagent_waitlist`）做内测预约；design token 集中在 `src/styles/global.css` 的 `:root` 变量；
 构建时用 `scripts/shot.mjs`（Playwright）截图生成预览图 / og:image。
+
+**语言状态**：线上目前仍是中文单语（`lang="zh-CN"`，无 i18n）。已决策改为**根路径 `/` 英文 + `/zh/` 中文**
+（与同系列 `*-landing` 一致），尚未实施 —— 见下方「i18n 改造」与 `docs/I18N-TOKENS-PLAN.md`。
 
 - 线上：https://job-agent.bayjf.com （自定义域名）· `job-agent-landing.pages.dev`（Pages 域名）
 - 产品仓库：https://github.com/bayernjf/job-agent（public）
 - 远端：`git@github.com:bayernjf/job-agent-landing.git`（public）
 
-## 当前状态（分支 dev，与 origin/dev 同步，工作区干净）
+## 当前状态（分支 dev，领先 origin/dev 3 个提交，工作区干净，尚未 push）
 最近提交：
-- `6af5bb5` chore: point site url to job-agent.bayjf.com
-- `20a3de0` feat: add preview screenshot pipeline and og meta
-- `4d6df0c` chore: trigger initial pages deployment
-- `8cff400` Merge pull request #1 from bayernjf/dev
+- `965400a` docs: record i18n decisions on locale, copy flow, switch
+- `7a29d2c` docs: point AGENTS and handoff to i18n plan
+- `8062e95` docs: add i18n and design token alignment plan
+- `3e67511` feat: render navbar logo mark as inline SVG（已同步到 origin/dev）
+
+> 本地历史曾与远端无共同祖先（本地根提交是远端 `cf20810` 的重复副本），已通过
+> `git rebase --onto origin/dev <dup> dev` 收敛，现在 dev 与 origin/dev 同源。
 
 部署：Cloudflare Pages（Git 集成）已上线，配置与 work-learn-landing 一致（build command
 `npx playwright install chromium && npm run build`，env `NODE_VERSION=22` + `PLAYWRIGHT_BROWSERS_PATH=0`），
 Production branch 为 `main`，`dev` 推送只出 preview。
+
+## i18n 改造（已决策，未实施）
+方案全文：[`docs/I18N-TOKENS-PLAN.md`](./docs/I18N-TOKENS-PLAN.md)，分 P0–P4 五阶段。
+
+| 决策 | 结论 |
+|---|---|
+| 默认语言 | 根路径 `/` 为英文，中文放 `/zh/` |
+| 文案流程 | **先英文后中文**：英文为源语言定稿，中文由英文产出（现有中文不作为源语言） |
+| 语言切换 | 本站内联实现，不往 `bayernjf/landing-ui` 提组件 |
+| 当前阻塞 | 英文源文案由谁起草未定；P3 的 `--radius` 14px→16px 视觉微调未确认 |
+
+开工后需同步改：`AGENTS.md`（「单语 / 无 i18n」描述）、`README.md`（技术栈 + 页面结构）、
+`docs/DEPLOYMENT.md`（预览图不再「两张相同」）。
 
 ## 注意点
 - **Commit message 一律用英文**（Conventional Commits）；初始中文提交已改写为英文（`chore: scaffold Astro landing page for JobAgent`），历史干净。
@@ -35,5 +54,6 @@ Production branch 为 `main`，`dev` 推送只出 preview。
 1. 落地页文案随 `job-agent` 产品迭代同步（Demo 预约体验等数字型/功能型文案易过期）。
 2. 如需分享页 / 隐私政策 / 条款页（其他落地多有），按同级 landing 模式新增并部署。
 3. 产品 MVP 起步后，把落地页 og 图与 hub 站（bayjf）产品卡片封面保持一致。
-4. **i18n + 设计 token 对齐**（本站是同系列 `*-landing` 里唯一的单语例外）：方案见
-   [`docs/I18N-TOKENS-PLAN.md`](./docs/I18N-TOKENS-PLAN.md)，分 P0–P4 五阶段，待评审后开工。
+4. **i18n + 设计 token 对齐**：方案已定稿，关键决策见上方「i18n 改造」，全文见
+   [`docs/I18N-TOKENS-PLAN.md`](./docs/I18N-TOKENS-PLAN.md)。用户选择暂不动工，等英文源文案产出方
+   与 P3 视觉微调确认后从 P0 开始。
