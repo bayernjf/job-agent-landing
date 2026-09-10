@@ -1,0 +1,71 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="隐私政策 | JobAgent"
+  description="JobAgent 隐私政策：我们如何处理与你访问本网站相关的信息。"
+>
+  <main class="legal">
+    <h1>隐私政策</h1>
+    <p class="updated">最后更新：2026 年 9 月 11 日</p>
+
+    <section>
+      <h2>1. 概述</h2>
+      <p>
+        JobAgent（以下简称"本网站"）是一个产品介绍网站。我们尊重并保护访问者的隐私。本政策说明与你访问本网站相关的信息如何被处理。使用本网站即表示你同意本政策的条款。
+      </p>
+    </section>
+
+    <section>
+      <h2>2. 我们处理的信息</h2>
+      <ul>
+        <li>本网站为静态站点，不提供账号注册，不主动收集姓名、邮箱等个人身份信息。</li>
+        <li>托管平台（如 Cloudflare Pages）可能根据其自身政策记录基本访问日志（IP、User-Agent 等），这不在我们的控制范围内。</li>
+        <li>如未来启用分析功能，仅使用匿名化的使用统计（页面浏览量、来源等），不会用于识别个人。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>3. 本地存储（localStorage）</h2>
+      <p>
+        本网站的 Demo 内测预约表单会将你输入的 GitHub 用户名保存在你浏览器的 localStorage 中（key：<code>jobagent_waitlist</code>）。这些数据<strong>仅存储在你的浏览器本地，不会上传到任何服务器</strong>，也不会被我们或第三方访问。你可以随时在浏览器设置中清除这些数据。
+      </p>
+    </section>
+
+    <section>
+      <h2>4. Cookie</h2>
+      <p>
+        本网站不使用 Cookie 进行追踪。仅上述 localStorage 用于记住内测预约信息，不用于跨站追踪。
+      </p>
+    </section>
+
+    <section>
+      <h2>5. 第三方链接</h2>
+      <p>
+        本网站包含指向 GitHub 等第三方网站的链接。这些网站的隐私实践不在本政策覆盖范围内，请参阅其各自的隐私政策。
+      </p>
+    </section>
+
+    <section>
+      <h2>6. 儿童</h2>
+      <p>本网站不面向 14 岁以下儿童，我们不会有意收集他们的个人信息。</p>
+    </section>
+
+    <section>
+      <h2>7. 政策变更</h2>
+      <p>
+        本政策可能随产品迭代而更新。变更将发布在本页面，并更新修订日期。
+      </p>
+    </section>
+
+    <section>
+      <h2>8. 联系</h2>
+      <p>
+        对本政策有疑问，请通过我们的
+        <a href="https://github.com/bayernjf/job-agent" target="_blank" rel="noopener noreferrer">GitHub 仓库</a>
+        提交 Issue。
+      </p>
+    </section>
+  </main>
+</Layout>
