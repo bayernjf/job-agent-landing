@@ -35,3 +35,5 @@ Production branch 为 `main`，`dev` 推送只出 preview。
 1. 落地页文案随 `job-agent` 产品迭代同步（Demo 预约体验等数字型/功能型文案易过期）。
 2. 如需分享页 / 隐私政策 / 条款页（其他落地多有），按同级 landing 模式新增并部署。
 3. 产品 MVP 起步后，把落地页 og 图与 hub 站（bayjf）产品卡片封面保持一致。
+4. **i18n + 设计 token 对齐**（本站是同系列 `*-landing` 里唯一的单语例外）：方案见
+   [`docs/I18N-TOKENS-PLAN.md`](./docs/I18N-TOKENS-PLAN.md)，分 P0–P4 五阶段，待评审后开工。
