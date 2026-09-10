@@ -1,4 +1,6 @@
 ---
+import BayjfLink from '@bay/landing-ui/components/BayjfLink.astro';
+import StarOnGithub from '@bay/landing-ui/components/StarOnGithub.astro';
 import Nav from '../components/Nav.astro';
 import '../styles/global.css';
 
@@ -38,6 +40,10 @@ const {
     <footer>
       <div class="container foot">
         <div>© 2026 JobAgent · 产品构想讨论稿 · 开发中</div>
+        <div class="foot-ext">
+          <BayjfLink size={16} class="foot-bayjf" />
+          <StarOnGithub href="https://github.com/bayernjf/job-agent" size={14} class="foot-star" />
+        </div>
         <div>
           <a href="#top">回到顶部</a>
           <span style="margin:0 8px;color:var(--border)">·</span>

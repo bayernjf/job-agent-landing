@@ -1,3 +1,7 @@
+---
+import BayjfLink from '@bay/landing-ui/components/BayjfLink.astro';
+import StarOnGithub from '@bay/landing-ui/components/StarOnGithub.astro';
+---
 <nav class="nav" id="top">
   <div class="container nav-inner">
     <a class="logo" href="#top">
@@ -10,6 +14,10 @@
       <li><a href="#moat">验证引擎</a></li>
       <li><a href="#roadmap">路线</a></li>
     </ul>
+    <div class="nav-ext">
+      <BayjfLink size={18} class="nav-bayjf" />
+      <StarOnGithub href="https://github.com/bayernjf/job-agent" size={15} class="nav-star" />
+    </div>
     <a class="nav-cta" href="#demo">预约内测</a>
   </div>
 </nav>
