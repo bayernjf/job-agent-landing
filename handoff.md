@@ -14,13 +14,13 @@ Astro 5 静态站点（`output: 'static'`）；Demo 区用 localStorage
 - 产品仓库：https://github.com/bayernjf/job-agent（public）
 - 远端：`git@github.com:bayernjf/job-agent-landing.git`（public）
 
-## 当前状态（分支 dev，工作区干净，有未推送提交）
-最近提交：
-- `f104bcb` docs: sync handoff with i18n decisions and branch state
-- `965400a` docs: record i18n decisions on locale, copy flow, switch
-- `7a29d2c` docs: point AGENTS and handoff to i18n plan
-- `8062e95` docs: add i18n and design token alignment plan
-- `3e67511` feat: render navbar logo mark as inline SVG（已同步到 origin/dev）
+## 当前状态（分支 dev，与 origin/dev 同步，工作区干净）
+最近提交（均已推送）：
+- `025c5f2` docs: record i18n locale, copy and switch
+- `3e3dd35` docs: point AGENTS and handoff to i18n plan
+- `de06c8e` docs: add i18n and design token alignment plan
+- `3e67511` feat: render navbar logo mark as inline SVG
+- `63015b3` design: refresh favicon with gradient mark and verified badge
 
 > 本地历史曾与远端无共同祖先（本地根提交是远端 `cf20810` 的重复副本），已通过
 > `git rebase --onto origin/dev <dup> dev` 收敛，现在 dev 与 origin/dev 同源。
