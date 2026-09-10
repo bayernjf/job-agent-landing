@@ -4,14 +4,22 @@
   "version": "0.1.0",
   "private": true,
   "description": "JobAgent 落地页 —— 以 GitHub 为桥梁的智能招聘平台（Astro）",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && node scripts/shot.mjs",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "check": "astro check",
+    "shot": "node scripts/shot.mjs"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
     "@bay/landing-ui": "github:bayernjf/landing-ui#v1.5.0",
-    "astro": "^5.12.0"
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.2.0",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "playwright": "^1.63.0"
