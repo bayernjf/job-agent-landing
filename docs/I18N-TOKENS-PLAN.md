@@ -4,6 +4,14 @@
 范围：接入 i18n（en 默认 + `/zh`）、把 design token 收敛到 `@bay/landing-ui`
 参考实现：[`bayernjf/work-learn-landing`](https://github.com/bayernjf/work-learn-landing)（同系列已落地的双语落地页）
 
+## 已决策
+
+| 决策 | 结论 | 日期 |
+|---|---|---|
+| 默认语言 | **根路径 `/` 为英文，中文放 `/zh/`**；与同系列 `*-landing` 一致 | 2026-09-10 |
+| 文案流程 | **先英文后中文**：英文作为源语言定稿，中文由英文产出；不把现有中文当源语言回译成英文 | 2026-09-10 |
+| 语言切换 | **本站内联实现**，不改 `landing-ui`；与 work-learn-landing 的 Nav 做法一致 | 2026-09-10 |
+
 ## 1. 背景
 
 `AGENTS.md:7` 写明本项目「简体中文，无 i18n」。但同系列 `*-landing` 站点（work-learn / termana / agent-world / one-world / word-picker / tab-manager 等）已统一为**英文默认 + `/zh` 子路径**，本站是唯一的单语例外。
@@ -75,7 +83,7 @@ src/pages/zh/index.astro    中文
 此时站点行为、URL、外观完全不变，纯粹是结构重构，风险最低。
 
 ### P2 — 补英文 + 上双语路由
-1. `ui.ts` 补英文文案
+1. **先出英文**：全部文案以英文定稿写入 `ui.ts`（源语言），再由英文产出中文
 2. `index.astro` 迁到英文并新建 `pages/zh/index.astro`
 3. `astro.config.mjs` 加 `i18n` + `@astrojs/sitemap`
 4. `Layout.astro` 动态 `lang` / hreflang / 分语言 og:image
@@ -119,8 +127,9 @@ docs: update project docs for bilingual site                 (P4)
 
 ## 7. 开放问题（需确认后再动 P2 / P3）
 
-1. **默认语言是否真的改 en？** 改后根路径 `/` 内容由中变英，现有中文内容迁到 `/zh/`，已有索引与 og 会失效重建。产品受众若偏中文，是否反过来保持 zh 在根、en 放 `/en`？
-2. **token 对齐的视觉微调是否接受？** `--radius` 14px 对齐到 `--lui-radius-lg`(16px) 会带来轻微圆角变化。
-3. **LangSwitch 放哪？** landing-ui v1.5.0 无此组件。是本站内联实现，还是往 `bayernjf/landing-ui` 提一个供全系列复用？
-4. **英文文案谁定？** 由 agent 依据 `job-agent` 产品 PRD 起草再交你审，还是你直接给？
+1. ~~**默认语言是否真的改 en？**~~ ✅ 已决策：根路径 `/` 为英文，中文放 `/zh/`（见「已决策」）。
+   影响：现有中文内容整体迁到 `/zh/`，根路径的搜索引擎索引与 og 会重建一次。
+2. **token 对齐的视觉微调是否接受？** `--radius` 14px 对齐到 `--lui-radius-lg`(16px) 会带来轻微圆角变化。（阻塞 P3）
+3. ~~**LangSwitch 放哪？**~~ ✅ 已决策：本站内联实现，不往 `landing-ui` 提组件（见「已决策」）。
+4. **英文文案由谁起草？** 已定「先英文后中文」的流程，但源文案的产出方未定：由 agent 依据 `job-agent` 产品 PRD 起草再交你审，还是你直接给？（阻塞 P2 第 1 步）
 5. **是否需要重定向规则？** 是否要按 `Accept-Language` 自动跳转，或为旧中文 URL 配 `_redirects`？
