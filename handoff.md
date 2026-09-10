@@ -8,15 +8,15 @@ Astro 5 静态站点（`output: 'static'`）；Demo 区用 localStorage
 （key：`jobagent_waitlist`）做内测预约；design token 集中在 `src/styles/global.css` 的 `:root` 变量；
 构建时用 `scripts/shot.mjs`（Playwright）截图生成预览图 / og:image。
 
-**语言状态**：线上目前仍是中文单语（`lang="zh-CN"`，无 i18n）。已决策改为**根路径 `/` 英文 + `/zh/` 中文**
-（与同系列 `*-landing` 一致），尚未实施 —— 见下方「i18n 改造」与 `docs/I18N-TOKENS-PLAN.md`。
+**语言状态**：线上目前仍是中文单语（`lang="zh-CN"`，无 i18n）。已决策改为根路径英文 + `/zh/` 中文，尚未实施。
 
 - 线上：https://job-agent.bayjf.com （自定义域名）· `job-agent-landing.pages.dev`（Pages 域名）
 - 产品仓库：https://github.com/bayernjf/job-agent（public）
 - 远端：`git@github.com:bayernjf/job-agent-landing.git`（public）
 
-## 当前状态（分支 dev，领先 origin/dev 3 个提交，工作区干净，尚未 push）
+## 当前状态（分支 dev，工作区干净，有未推送提交）
 最近提交：
+- `f104bcb` docs: sync handoff with i18n decisions and branch state
 - `965400a` docs: record i18n decisions on locale, copy flow, switch
 - `7a29d2c` docs: point AGENTS and handoff to i18n plan
 - `8062e95` docs: add i18n and design token alignment plan
@@ -28,19 +28,6 @@ Astro 5 静态站点（`output: 'static'`）；Demo 区用 localStorage
 部署：Cloudflare Pages（Git 集成）已上线，配置与 work-learn-landing 一致（build command
 `npx playwright install chromium && npm run build`，env `NODE_VERSION=22` + `PLAYWRIGHT_BROWSERS_PATH=0`），
 Production branch 为 `main`，`dev` 推送只出 preview。
-
-## i18n 改造（已决策，未实施）
-方案全文：[`docs/I18N-TOKENS-PLAN.md`](./docs/I18N-TOKENS-PLAN.md)，分 P0–P4 五阶段。
-
-| 决策 | 结论 |
-|---|---|
-| 默认语言 | 根路径 `/` 为英文，中文放 `/zh/` |
-| 文案流程 | **先英文后中文**：英文为源语言定稿，中文由英文产出（现有中文不作为源语言） |
-| 语言切换 | 本站内联实现，不往 `bayernjf/landing-ui` 提组件 |
-| 当前阻塞 | 英文源文案由谁起草未定；P3 的 `--radius` 14px→16px 视觉微调未确认 |
-
-开工后需同步改：`AGENTS.md`（「单语 / 无 i18n」描述）、`README.md`（技术栈 + 页面结构）、
-`docs/DEPLOYMENT.md`（预览图不再「两张相同」）。
 
 ## 注意点
 - **Commit message 一律用英文**（Conventional Commits）；初始中文提交已改写为英文（`chore: scaffold Astro landing page for JobAgent`），历史干净。
@@ -54,6 +41,5 @@ Production branch 为 `main`，`dev` 推送只出 preview。
 1. 落地页文案随 `job-agent` 产品迭代同步（Demo 预约体验等数字型/功能型文案易过期）。
 2. 如需分享页 / 隐私政策 / 条款页（其他落地多有），按同级 landing 模式新增并部署。
 3. 产品 MVP 起步后，把落地页 og 图与 hub 站（bayjf）产品卡片封面保持一致。
-4. **i18n + 设计 token 对齐**：方案已定稿，关键决策见上方「i18n 改造」，全文见
-   [`docs/I18N-TOKENS-PLAN.md`](./docs/I18N-TOKENS-PLAN.md)。用户选择暂不动工，等英文源文案产出方
-   与 P3 视觉微调确认后从 P0 开始。
+4. **i18n + 设计 token 对齐**：方案已定稿（含已决策项与待定阻塞项），见
+   [`docs/I18N-TOKENS-PLAN.md`](./docs/I18N-TOKENS-PLAN.md)。暂未动工，按 P0–P4 顺序推进。
