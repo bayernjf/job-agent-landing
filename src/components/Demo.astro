@@ -7,11 +7,11 @@ const t = useTranslations(lang);
 
 <section id="demo">
   <div class="container">
-    <div class="demo-box">
+    <div class="mx-auto max-w-[620px] rounded-[18px] border border-border bg-surface px-9 py-11 text-center shadow-card">
       <span class="eyebrow">{t('demo.eyebrow')}</span>
-      <h2 style="font-size:28px;">{t('demo.title')}</h2>
-      <p class="sub" style="margin:10px auto 0;font-size:15px;">{t('demo.sub')}</p>
-      <form class="demo-form" id="demo-form">
+      <h2 class="text-[28px]">{t('demo.title')}</h2>
+      <p class="sub mx-auto mt-2.5 text-[15px]">{t('demo.sub')}</p>
+      <form class="mt-[26px] flex gap-2.5 max-[640px]:flex-col" id="demo-form">
         <input
           type="text"
           id="gh-input"
@@ -19,11 +19,12 @@ const t = useTranslations(lang);
           autocomplete="off"
           spellcheck="false"
           aria-label="GitHub username"
+          class="flex-1 rounded-[10px] border border-border px-[18px] py-[13px] font-sans text-[15px] outline-none transition-colors focus:border-brand"
         />
-        <button type="submit">{t('demo.button')}</button>
+        <button type="submit" class="cursor-pointer rounded-[10px] bg-brand px-[22px] py-[13px] font-sans text-[15px] font-bold text-white transition-colors hover:bg-brand-dark">{t('demo.button')}</button>
       </form>
-      <div class="demo-tip" id="demo-tip">{t('demo.tip')}</div>
-      <div class="demo-result" id="demo-result"></div>
+      <div class="mt-3.5 text-[13px] text-ink-3" id="demo-tip">{t('demo.tip')}</div>
+      <div class="mt-[18px] hidden rounded-[10px] border border-green-200 bg-brand-soft px-4 py-3 text-[14px] text-green-900" id="demo-result"></div>
     </div>
   </div>
 </section>

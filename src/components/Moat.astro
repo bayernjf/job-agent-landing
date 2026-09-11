@@ -10,24 +10,24 @@ const t = useTranslations(lang);
     <span class="eyebrow">{t('moat.eyebrow')}</span>
     <h2>{t('moat.title')}</h2>
     <p class="sub">{t('moat.sub')}</p>
-    <div class="moat-grid">
-      <div class="moat-card">
-        <span class="k">{t('moat.card1.k')}</span>
-        <h3>{t('moat.card1.title')}</h3>
-        <p>{t('moat.card1.desc')}</p>
+    <div class="mt-11 grid grid-cols-3 gap-[18px] max-[960px]:grid-cols-2 max-[640px]:grid-cols-1">
+      <div class="rounded-card border border-border bg-surface p-6">
+        <span class="mb-2.5 block text-[26px] font-extrabold text-brand-dark">{t('moat.card1.k')}</span>
+        <h3 class="mb-2 text-[16px] font-bold">{t('moat.card1.title')}</h3>
+        <p class="text-[14px] text-ink-2">{t('moat.card1.desc')}</p>
       </div>
-      <div class="moat-card">
-        <span class="k">{t('moat.card2.k')}</span>
-        <h3>{t('moat.card2.title')}</h3>
-        <p>{t('moat.card2.desc')}</p>
+      <div class="rounded-card border border-border bg-surface p-6">
+        <span class="mb-2.5 block text-[26px] font-extrabold text-brand-dark">{t('moat.card2.k')}</span>
+        <h3 class="mb-2 text-[16px] font-bold">{t('moat.card2.title')}</h3>
+        <p class="text-[14px] text-ink-2">{t('moat.card2.desc')}</p>
       </div>
-      <div class="moat-card">
-        <span class="k">{t('moat.card3.k')}</span>
-        <h3>{t('moat.card3.title')}</h3>
-        <p>{t('moat.card3.desc')}</p>
+      <div class="rounded-card border border-border bg-surface p-6">
+        <span class="mb-2.5 block text-[26px] font-extrabold text-brand-dark">{t('moat.card3.k')}</span>
+        <h3 class="mb-2 text-[16px] font-bold">{t('moat.card3.title')}</h3>
+        <p class="text-[14px] text-ink-2">{t('moat.card3.desc')}</p>
       </div>
     </div>
-    <div class="moat-note">
+    <div class="mt-[30px] rounded-r-xl border-l-4 border-brand bg-brand-soft px-6 py-[18px] text-[15px] text-green-900">
       <b>{lang === 'zh' ? '为什么这是护城河：' : 'Why this is the moat:'}</b>{t('moat.note')}
     </div>
   </div>
