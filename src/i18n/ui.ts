@@ -168,6 +168,11 @@ export const ui = {
     'demo.result.success': '已记录 @{name}，你已加入内测队列（第 {count} 位）。',
     'demo.result.empty': '请输入 GitHub 用户名',
     'demo.result.error': '浏览器不支持本地存储，请换个浏览器试试。',
+    'demo.button.analyze': '生成能力画像',
+    'demo.state.queued': '排队中，请稍候…',
+    'demo.state.running': '正在分析 GitHub 行为痕迹…',
+    'demo.state.failed': '分析失败，请稍后重试',
+    'demo.state.invalid': 'GitHub 用户名格式无效',
 
     // Footer
     'footer.copyright': '© 2026 JobAgent · 产品构想讨论稿 · 开发中',
@@ -316,6 +321,11 @@ export const ui = {
     'demo.result.success': 'Recorded @{name}, you\'ve joined the beta queue (position #{count}).',
     'demo.result.empty': 'Please enter a GitHub username',
     'demo.result.error': 'Browser doesn\'t support local storage. Please try a different browser.',
+    'demo.button.analyze': 'Generate profile',
+    'demo.state.queued': 'Queued, please wait…',
+    'demo.state.running': 'Analyzing your GitHub activity…',
+    'demo.state.failed': 'Analysis failed, please try again later',
+    'demo.state.invalid': 'Invalid GitHub username',
 
     // Footer
     'footer.copyright': '© 2026 JobAgent · Product concept draft · In development',

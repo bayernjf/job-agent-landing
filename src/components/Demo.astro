@@ -3,6 +3,15 @@ import { getLangFromUrl, useTranslations } from '../i18n/ui';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// 真实分析流程开关：构建时配置 PUBLIC_API_BASE 才启用；未配置时回退本地 waitlist 演示，
+// 保证已上线静态站点在后端部署前行为不变。
+const apiBase = import.meta.env.PUBLIC_API_BASE ?? '';
+const reportBase = import.meta.env.PUBLIC_REPORT_BASE ?? '';
+const apiEnabled = Boolean(apiBase);
+// 落地页语言 → 报告页语言段（zh → zh-CN，en → en）
+const reportLocale = lang === 'zh' ? 'zh-CN' : 'en';
+const buttonLabel = apiEnabled ? t('demo.button.analyze') : t('demo.button');
 ---
 
 <section id="demo">
@@ -11,7 +20,20 @@ const t = useTranslations(lang);
       <span class="eyebrow">{t('demo.eyebrow')}</span>
       <h2 class="text-[28px]">{t('demo.title')}</h2>
       <p class="sub mx-auto mt-2.5 text-[15px]">{t('demo.sub')}</p>
-      <form class="mt-[26px] flex gap-2.5 max-[640px]:flex-col" id="demo-form">
+      <form
+        class="mt-[26px] flex gap-2.5 max-[640px]:flex-col"
+        id="demo-form"
+        data-api-base={apiBase}
+        data-report-base={reportBase}
+        data-report-locale={reportLocale}
+        data-msg-queued={t('demo.state.queued')}
+        data-msg-running={t('demo.state.running')}
+        data-msg-failed={t('demo.state.failed')}
+        data-msg-invalid={t('demo.state.invalid')}
+        data-msg-empty={t('demo.result.empty')}
+        data-msg-success={t('demo.result.success')}
+        data-msg-storage-error={t('demo.result.error')}
+      >
         <input
           type="text"
           id="gh-input"
@@ -19,70 +41,149 @@ const t = useTranslations(lang);
           autocomplete="off"
           spellcheck="false"
           aria-label="GitHub username"
-          class="flex-1 rounded-[10px] border border-border px-[18px] py-[13px] font-sans text-[15px] outline-none transition-colors focus:border-brand"
+          class="flex-1 rounded-[10px] border border-border px-[18px] py-[13px] font-sans text-[15px] outline-none transition-colors focus:border-brand disabled:opacity-60"
         />
-        <button type="submit" class="cursor-pointer rounded-[10px] bg-brand px-[22px] py-[13px] font-sans text-[15px] font-bold text-white transition-colors hover:bg-brand-dark">{t('demo.button')}</button>
+        <button
+          type="submit"
+          id="demo-submit"
+          class="cursor-pointer rounded-[10px] bg-brand px-[22px] py-[13px] font-sans text-[15px] font-bold text-white transition-colors hover:bg-brand-dark disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {buttonLabel}
+        </button>
       </form>
       <div class="mt-3.5 text-[13px] text-ink-3" id="demo-tip">{t('demo.tip')}</div>
-      <div class="mt-[18px] hidden rounded-[10px] border border-green-200 bg-brand-soft px-4 py-3 text-[14px] text-green-900" id="demo-result"></div>
+      <div
+        class="mt-[18px] hidden rounded-[10px] border border-green-200 bg-brand-soft px-4 py-3 text-[14px] text-green-900"
+        id="demo-result"
+        role="status"
+        aria-live="polite"
+      ></div>
     </div>
   </div>
 </section>
 
 <script>
-  const form = document.getElementById('demo-form');
-  const input = document.getElementById('gh-input');
-  const result = document.getElementById('demo-result');
-  const tip = document.getElementById('demo-tip');
+  const form = document.getElementById('demo-form') as HTMLFormElement | null;
+  const input = document.getElementById('gh-input') as HTMLInputElement | null;
+  const submitBtn = document.getElementById('demo-submit') as HTMLButtonElement | null;
+  const result = document.getElementById('demo-result') as HTMLDivElement | null;
+  const tip = document.getElementById('demo-tip') as HTMLDivElement | null;
 
-  // Detect language from URL path (English at root, Chinese at /zh/)
-  const path = window.location.pathname;
-  const isEn = !path.startsWith('/zh');
-  const messages = isEn ? {
-    empty: 'Please enter a GitHub username',
-    success: (name: string, count: number) => `Recorded @${name}, you've joined the beta queue (position #${count}).`,
-    error: 'Browser doesn\'t support local storage. Please try a different browser.',
-  } : {
-    empty: '请输入 GitHub 用户名',
-    success: (name: string, count: number) => `已记录 @${name}，你已加入内测队列（第 ${count} 位）。`,
-    error: '浏览器不支持本地存储，请换个浏览器试试。',
-  };
+  if (form && input) {
+    const d = form.dataset;
+    const apiBase = d.apiBase ?? '';
+    const reportBase = d.reportBase ?? '';
+    const reportLocale = d.reportLocale ?? 'en';
 
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = input?.value.trim();
-    if (!name) {
-      if (result) {
-        result.style.display = 'block';
-        result.style.color = '#92400e';
-        result.style.background = '#fffbeb';
-        result.style.borderColor = '#fcd34d';
-        result.textContent = messages.empty;
-      }
-      return;
-    }
-    try {
-      const key = 'jobagent_waitlist';
-      const list = JSON.parse(localStorage.getItem(key) || '[]');
-      if (!list.includes(name)) list.push(name);
-      localStorage.setItem(key, JSON.stringify(list));
-      if (tip) tip.style.display = 'none';
-      if (result) {
-        result.style.display = 'block';
+    // GitHub username rule, kept consistent with the API Zod validation.
+    const GH_RE = /^[a-zA-Z0-9](?:[a-zA-Z0-9]|-(?=[a-zA-Z0-9])){0,38}$/;
+    const POLL_MS = 2000;
+    let pollTimer: ReturnType<typeof setTimeout> | null = null;
+
+    function showResult(text: string, tone: 'ok' | 'warn') {
+      if (!result) return;
+      result.style.display = 'block';
+      if (tone === 'ok') {
         result.style.color = '#14532d';
         result.style.background = '#f0fdf4';
         result.style.borderColor = '#bbf7d0';
-        result.textContent = messages.success(name, list.length);
-      }
-      if (input) input.value = '';
-    } catch {
-      if (result) {
-        result.style.display = 'block';
+      } else {
         result.style.color = '#92400e';
         result.style.background = '#fffbeb';
         result.style.borderColor = '#fcd34d';
-        result.textContent = messages.error;
+      }
+      result.textContent = text;
+    }
+
+    function setBusy(busy: boolean) {
+      if (submitBtn) submitBtn.disabled = busy;
+      if (input) input.disabled = busy;
+    }
+
+    // Real flow: POST /analyze → poll /jobs/:id → redirect to the report page.
+    async function analyzeFlow(name: string) {
+      if (!GH_RE.test(name)) {
+        showResult(d.msgInvalid ?? 'Invalid GitHub username', 'warn');
+        return;
+      }
+      setBusy(true);
+      if (tip) tip.style.display = 'none';
+      showResult(d.msgQueued ?? 'Queued…', 'ok');
+
+      try {
+        const createRes = await fetch(`${apiBase}/analyze`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: name }),
+        });
+        if (!createRes.ok) throw new Error(`HTTP ${createRes.status}`);
+        const { jobId } = (await createRes.json()) as { jobId: string };
+        pollJob(jobId);
+      } catch {
+        setBusy(false);
+        showResult(d.msgFailed ?? 'Analysis failed', 'warn');
       }
     }
-  });
+
+    function pollJob(jobId: string) {
+      pollTimer = setTimeout(async () => {
+        try {
+          const res = await fetch(`${apiBase}/jobs/${jobId}`);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const job = (await res.json()) as {
+            status: string;
+            stage?: string | null;
+            profileId?: string | null;
+            errorMessage?: string | null;
+          };
+
+          if (job.status === 'succeeded' && job.profileId) {
+            window.location.href = `${reportBase}/${reportLocale}/report/${job.profileId}`;
+            return;
+          }
+          if (job.status === 'failed') {
+            setBusy(false);
+            showResult(job.errorMessage || d.msgFailed || 'Failed', 'warn');
+            return;
+          }
+          showResult(d.msgRunning ?? 'Analyzing…', 'ok');
+          pollJob(jobId);
+        } catch {
+          setBusy(false);
+          showResult(d.msgFailed ?? 'Analysis failed', 'warn');
+        }
+      }, POLL_MS);
+    }
+
+    // Fallback flow: local waitlist demo (used until the backend is deployed).
+    function waitlistFlow(name: string) {
+      try {
+        const key = 'jobagent_waitlist';
+        const list: string[] = JSON.parse(localStorage.getItem(key) || '[]');
+        if (!list.includes(name)) list.push(name);
+        localStorage.setItem(key, JSON.stringify(list));
+        if (tip) tip.style.display = 'none';
+        const template = d.msgSuccess ?? '';
+        showResult(template.replace('{name}', name).replace('{count}', String(list.length)), 'ok');
+        input.value = '';
+      } catch {
+        showResult(d.msgStorageError ?? 'Local storage unavailable', 'warn');
+      }
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (pollTimer) clearTimeout(pollTimer);
+      const name = input.value.trim();
+      if (!name) {
+        showResult(d.msgEmpty ?? 'Please enter a username', 'warn');
+        return;
+      }
+      if (apiBase) {
+        void analyzeFlow(name);
+      } else {
+        waitlistFlow(name);
+      }
+    });
+  }
 </script>
