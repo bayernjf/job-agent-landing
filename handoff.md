@@ -49,7 +49,7 @@ Demo 区用 localStorage（key：`jobagent_waitlist`）做内测预约；样式�
 - `2a3cd8f` feat(config): add sitemap, i18n routing (en-first), and tailwind vite plugin
 - `6fa90fa` chore(deps): upgrade to Astro 7, add Tailwind CSS 4 and sitemap
 
-`dev` 领先 `origin/dev` 10 个提交，未 push。工作区干净。
+`dev` 领先 `origin/dev` 4 个提交，未 push。工作区干净。
 
 **Tailwind 迁移已完成**（2026-09-11）：全部 7 个组件（Nav/Hero/Problem/Solution/Moat/Roadmap/Demo）+ Layout 页脚已从自定义 CSS 类迁移到 Tailwind utility；`global.css` 从 17KB 精简到 5.3KB，仅保留 `@theme` token、landing-ui 覆盖、基础样式、共享原语（`.container`/`.eyebrow`/`h2`/`.sub`/`.mvp-note`/`.btn`）、Hero 复杂渐变背景与渐变文字、进度条（`.bar`）、legal 页面样式。响应式断点使用 arbitrary 值（`max-[640px]`/`max-[960px]`）与原行为精确对齐。构建验证通过，8 页 + 中英文 og 图全部生成，视觉零变化。
 
@@ -74,4 +74,4 @@ Production branch 为 `main`，`dev` 推送只出 preview。
 1. ~~组件逐步从自定义 CSS 类迁移到 Tailwind utility~~ **已完成**（2026-09-11，3 个原子提交，global.css 从 17KB 精简到 5.3KB）。
 2. 落地页文案随 `job-agent` 产品迭代同步（Demo 预约体验等数字型/功能型文案易过期）。
 3. 产品 MVP 起步后，把落地页 og 图视觉风格与 hub 站（bayjf）产品卡片封面进一步统一（当前 og 图为 16:10 首屏截图，格式已对齐，视觉风格待 MVP 后统一）。
-4. `dev` 分支领先 `origin/dev` 10 个提交，待用户确认后 push。
+4. `dev` 分支领先 `origin/dev` 4 个提交，待用户确认后 push。
