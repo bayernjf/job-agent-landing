@@ -7,23 +7,23 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const altPath = getAltLangPath(Astro.url, lang);
 ---
-<nav class="nav" id="top">
-  <div class="container nav-inner">
-    <a class="logo" href={localizePath('/', lang)}>
-      <span class="logo-mark">J</span>
+<nav class="sticky top-0 z-50 border-b border-border bg-bg/85 backdrop-blur-md" id="top">
+  <div class="container flex h-16 items-center justify-between">
+    <a class="flex items-center gap-2.5 text-lg font-extrabold text-ink no-underline" href={localizePath('/', lang)}>
+      <span class="grid h-[30px] w-[30px] place-items-center rounded-lg bg-gradient-to-br from-brand to-teal text-[15px] font-extrabold text-white">J</span>
       JobAgent
     </a>
-    <ul class="nav-links">
-      <li><a href={localizePath('/#problem', lang)}>{t('nav.problem')}</a></li>
-      <li><a href={localizePath('/#solution', lang)}>{t('nav.solution')}</a></li>
-      <li><a href={localizePath('/#moat', lang)}>{t('nav.moat')}</a></li>
-      <li><a href={localizePath('/#roadmap', lang)}>{t('nav.roadmap')}</a></li>
+    <ul class="list-none gap-7 max-[640px]:hidden md:flex">
+      <li><a class="text-[15px] font-medium text-ink-2 no-underline hover:text-ink" href={localizePath('/#problem', lang)}>{t('nav.problem')}</a></li>
+      <li><a class="text-[15px] font-medium text-ink-2 no-underline hover:text-ink" href={localizePath('/#solution', lang)}>{t('nav.solution')}</a></li>
+      <li><a class="text-[15px] font-medium text-ink-2 no-underline hover:text-ink" href={localizePath('/#moat', lang)}>{t('nav.moat')}</a></li>
+      <li><a class="text-[15px] font-medium text-ink-2 no-underline hover:text-ink" href={localizePath('/#roadmap', lang)}>{t('nav.roadmap')}</a></li>
     </ul>
-    <div class="nav-ext">
-      <BayjfLink size={18} class="nav-bayjf" />
-      <StarOnGithub href="https://github.com/bayernjf/job-agent" size={15} class="nav-star" />
-      <a href={altPath} class="nav-lang" hreflang={lang === 'zh' ? 'en' : 'zh-CN'}>{t('nav.langSwitch')}</a>
+    <div class="flex items-center gap-3">
+      <BayjfLink size={18} class="inline-flex items-center text-[13px] font-medium text-ink-2 no-underline hover:text-ink" />
+      <StarOnGithub href="https://github.com/bayernjf/job-agent" size={15} class="text-ink-2 hover:text-ink" />
+      <a href={altPath} class="text-[13px] font-medium text-ink-2 no-underline hover:text-ink" hreflang={lang === 'zh' ? 'en' : 'zh-CN'}>{t('nav.langSwitch')}</a>
     </div>
-    <a class="nav-cta" href={localizePath('/#demo', lang)}>{t('nav.cta')}</a>
+    <a class="rounded-full bg-ink px-[18px] py-[9px] text-[14px] font-semibold text-white no-underline transition-colors hover:bg-slate-800" href={localizePath('/#demo', lang)}>{t('nav.cta')}</a>
   </div>
 </nav>

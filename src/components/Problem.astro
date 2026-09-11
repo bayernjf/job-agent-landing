@@ -10,30 +10,30 @@ const t = useTranslations(lang);
     <span class="eyebrow">{t('problem.eyebrow')}</span>
     <h2>{t('problem.title')}</h2>
     <p class="sub">{t('problem.sub')}</p>
-    <div class="problem-grid">
-      <div class="problem-card">
-        <div class="ic ic-red">📄</div>
-        <h3>{t('problem.card1.title')}</h3>
-        <p>{t('problem.card1.desc')}</p>
+    <div class="mt-11 grid grid-cols-4 gap-[18px] max-[960px]:grid-cols-2 max-[640px]:grid-cols-1">
+      <div class="rounded-card border border-border bg-surface p-6">
+        <div class="mb-4 grid h-[42px] w-[42px] place-items-center rounded-[10px] bg-danger-soft text-[20px]">📄</div>
+        <h3 class="mb-2 text-[17px] font-bold">{t('problem.card1.title')}</h3>
+        <p class="text-[14px] text-ink-2">{t('problem.card1.desc')}</p>
       </div>
-      <div class="problem-card">
-        <div class="ic ic-amber">🎤</div>
-        <h3>{t('problem.card2.title')}</h3>
-        <p>{t('problem.card2.desc')}</p>
+      <div class="rounded-card border border-border bg-surface p-6">
+        <div class="mb-4 grid h-[42px] w-[42px] place-items-center rounded-[10px] bg-amber-soft text-[20px]">🎤</div>
+        <h3 class="mb-2 text-[17px] font-bold">{t('problem.card2.title')}</h3>
+        <p class="text-[14px] text-ink-2">{t('problem.card2.desc')}</p>
       </div>
-      <div class="problem-card">
-        <div class="ic ic-blue">🤖</div>
-        <h3>{t('problem.card3.title')}</h3>
-        <p>{t('problem.card3.desc')}</p>
+      <div class="rounded-card border border-border bg-surface p-6">
+        <div class="mb-4 grid h-[42px] w-[42px] place-items-center rounded-[10px] bg-blue-50 text-[20px]">🤖</div>
+        <h3 class="mb-2 text-[17px] font-bold">{t('problem.card3.title')}</h3>
+        <p class="text-[14px] text-ink-2">{t('problem.card3.desc')}</p>
       </div>
-      <div class="problem-card">
-        <div class="ic ic-slate">🔍</div>
-        <h3>{t('problem.card4.title')}</h3>
-        <p>{t('problem.card4.desc')}</p>
+      <div class="rounded-card border border-border bg-surface p-6">
+        <div class="mb-4 grid h-[42px] w-[42px] place-items-center rounded-[10px] bg-slate-100 text-[20px]">🔍</div>
+        <h3 class="mb-2 text-[17px] font-bold">{t('problem.card4.title')}</h3>
+        <p class="text-[14px] text-ink-2">{t('problem.card4.desc')}</p>
       </div>
     </div>
-    <div class="takeaway">
-      <b>{lang === 'zh' ? '结论：' : 'Bottom line:'}</b>{t('problem.takeaway')}
+    <div class="mt-9 rounded-card bg-ink px-7 py-6 text-[17px] text-dark-text">
+      <b class="text-green-400">{lang === 'zh' ? '结论：' : 'Bottom line:'}</b>{t('problem.takeaway')}
     </div>
   </div>
 </section>
