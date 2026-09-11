@@ -1,21 +1,28 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
 <section id="demo">
   <div class="container">
     <div class="demo-box">
-      <span class="eyebrow">内测预约</span>
-      <h2 style="font-size:28px;">输入你的 GitHub 用户名</h2>
-      <p class="sub" style="margin:10px auto 0;font-size:15px;">产品开发中——提交后即加入内测队列（演示版，记录仅保存在你的浏览器本地）。</p>
+      <span class="eyebrow">{t('demo.eyebrow')}</span>
+      <h2 style="font-size:28px;">{t('demo.title')}</h2>
+      <p class="sub" style="margin:10px auto 0;font-size:15px;">{t('demo.sub')}</p>
       <form class="demo-form" id="demo-form">
         <input
           type="text"
           id="gh-input"
-          placeholder="例如：torvalds"
+          placeholder={t('demo.placeholder')}
           autocomplete="off"
           spellcheck="false"
-          aria-label="GitHub 用户名"
+          aria-label="GitHub username"
         />
-        <button type="submit">预约内测</button>
+        <button type="submit">{t('demo.button')}</button>
       </form>
-      <div class="demo-tip" id="demo-tip">正式版将在这里展示你的仓库能力画像</div>
+      <div class="demo-tip" id="demo-tip">{t('demo.tip')}</div>
       <div class="demo-result" id="demo-result"></div>
     </div>
   </div>
@@ -27,6 +34,19 @@
   const result = document.getElementById('demo-result');
   const tip = document.getElementById('demo-tip');
 
+  // Detect language from URL path (English at root, Chinese at /zh/)
+  const path = window.location.pathname;
+  const isEn = !path.startsWith('/zh');
+  const messages = isEn ? {
+    empty: 'Please enter a GitHub username',
+    success: (name: string, count: number) => `Recorded @${name}, you've joined the beta queue (position #${count}).`,
+    error: 'Browser doesn\'t support local storage. Please try a different browser.',
+  } : {
+    empty: '请输入 GitHub 用户名',
+    success: (name: string, count: number) => `已记录 @${name}，你已加入内测队列（第 ${count} 位）。`,
+    error: '浏览器不支持本地存储，请换个浏览器试试。',
+  };
+
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
     const name = input?.value.trim();
@@ -36,7 +56,7 @@
         result.style.color = '#92400e';
         result.style.background = '#fffbeb';
         result.style.borderColor = '#fcd34d';
-        result.textContent = '请输入 GitHub 用户名';
+        result.textContent = messages.empty;
       }
       return;
     }
@@ -51,7 +71,7 @@
         result.style.color = '#14532d';
         result.style.background = '#f0fdf4';
         result.style.borderColor = '#bbf7d0';
-        result.textContent = `已记录 @${name}，你已加入内测队列（第 ${list.length} 位）。`;
+        result.textContent = messages.success(name, list.length);
       }
       if (input) input.value = '';
     } catch {
@@ -60,7 +80,7 @@
         result.style.color = '#92400e';
         result.style.background = '#fffbeb';
         result.style.borderColor = '#fcd34d';
-        result.textContent = '浏览器不支持本地存储，请换个浏览器试试。';
+        result.textContent = messages.error;
       }
     }
   });

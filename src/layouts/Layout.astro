@@ -2,6 +2,7 @@
 import BayjfLink from '@bay/landing-ui/components/BayjfLink.astro';
 import StarOnGithub from '@bay/landing-ui/components/StarOnGithub.astro';
 import Nav from '../components/Nav.astro';
+import { getLangFromUrl, useTranslations, localizePath } from '../i18n/ui';
 import '../styles/global.css';
 
 interface Props {
@@ -9,14 +10,24 @@ interface Props {
   description?: string;
 }
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const ogImage = lang === 'zh' ? 'https://job-agent.bayjf.com/preview-zh.png' : 'https://job-agent.bayjf.com/preview-en.png';
+const ogUrl = lang === 'zh' ? 'https://job-agent.bayjf.com/zh' : 'https://job-agent.bayjf.com';
+
 const {
-  title = 'JobAgent · 以 GitHub 为桥梁的智能招聘平台',
-  description = 'AI 时代，让招聘回到真实工作证据。JobAgent 把 GitHub 仓库分析成可验证的能力画像，服务企业与求职者。',
+  title = lang === 'zh'
+    ? 'JobAgent · 以 GitHub 为桥梁的智能招聘平台'
+    : 'JobAgent · AI-era hiring platform built on GitHub evidence',
+  description = lang === 'zh'
+    ? 'AI 时代，让招聘回到真实工作证据。JobAgent 把 GitHub 仓库分析成可验证的能力画像，服务企业与求职者。'
+    : 'Bring hiring back to real work evidence in the AI era. JobAgent turns GitHub repos into verifiable ability profiles for enterprises and candidates.',
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang={lang === 'zh' ? 'zh-CN' : 'en'}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,8 +38,8 @@ const {
     <meta property="og:site_name" content="JobAgent" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="https://job-agent.bayjf.com/preview-zh.png" />
-    <meta property="og:url" content="https://job-agent.bayjf.com" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={ogUrl} />
     <meta name="twitter:card" content="summary_large_image" />
     <title>{title}</title>
   </head>
@@ -39,15 +50,15 @@ const {
     </main>
     <footer>
       <div class="container foot">
-        <div>© 2026 JobAgent · 产品构想讨论稿 · 开发中</div>
+        <div>{t('footer.copyright')}</div>
         <div class="foot-ext">
           <BayjfLink size={16} class="foot-bayjf" />
           <StarOnGithub href="https://github.com/bayernjf/job-agent" size={14} class="foot-star" />
         </div>
-        <div>
-          <a href="#top">回到顶部</a>
-          <span style="margin:0 8px;color:var(--border)">·</span>
-          <span>以 GitHub 为桥梁 · 真实性验证 · 双向闭环</span>
+        <div class="foot-links">
+          <a href={localizePath('/privacy', lang)}>{t('footer.privacy')}</a>
+          <a href={localizePath('/terms', lang)}>{t('footer.terms')}</a>
+          <a href={localizePath('/#top', lang)}>{t('footer.backToTop')}</a>
         </div>
       </div>
     </footer>
