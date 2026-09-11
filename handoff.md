@@ -5,7 +5,7 @@
 ## 项目概况
 JobAgent 落地页：以 GitHub 为桥梁的智能招聘平台（把仓库分析成可信、可解释、可复核的能力画像，服务企业与求职者）。
 Astro 7 静态站点（`output: 'static'`），中英双语 i18n（defaultLocale=`en`，英文在根路径，中文在 `/zh/`），无 React island；
-Demo 区用 localStorage（key：`jobagent_waitlist`）做内测预约；样式为 Tailwind CSS 4 + 原生 CSS 混合模式，
+Demo 区用 localStorage（key：`jobagent_waitlist`）做内测预约；样式为 Tailwind CSS 4 utility + 原生 CSS 混合模式，
 `global.css` 顶部 `@import "tailwindcss"` + `@import "@bay/landing-ui/styles/tokens.css"`，design token 集中在 `@theme { ... }`，
 品牌色通过 `--lui-accent` 覆盖；构建时用 `scripts/shot.mjs`（Playwright）截图生成中英文预览图 / og:image。
 
@@ -18,7 +18,7 @@ Demo 区用 localStorage（key：`jobagent_waitlist`）做内测预约；样式�
 |------|------|
 | 框架 | Astro 7（SSG，`output: 'static'`） |
 | 语言 | 中英双语 i18n（`defaultLocale: 'en'`，`prefixDefaultLocale: false`，中文在 `/zh/`） |
-| 样式 | Tailwind CSS 4（`@theme` token）+ 原生 CSS 组件类 + `@bay/landing-ui` tokens |
+| 样式 | Tailwind CSS 4（`@theme` token）+ utility 优先，`global.css` 仅保留 token / 共享原语 / 复杂视觉 |
 | 共享组件 | `@bay/landing-ui` v1.5.0：Nav / Footer 统一使用 `BayjfLink` + `StarOnGithub` |
 | i18n | Astro 内置 i18n，翻译字典 `src/i18n/ui.ts`（`getLangFromUrl` / `useTranslations` / `localizePath` / `getAltLangPath`） |
 | SEO | `@astrojs/sitemap`（含 i18n locale 映射） |
@@ -37,6 +37,10 @@ Demo 区用 localStorage（key：`jobagent_waitlist`）做内测预约；样式�
 
 ## 当前状态（分支 dev）
 最近提交：
+- `8522a8e` refactor: migrate footer to Tailwind utilities, slim global.css
+- `af1c131` refactor(components): migrate Solution, Moat, Roadmap, Demo to Tailwind utilities
+- `954c95b` refactor(components): migrate Nav, Hero, Problem to Tailwind utilities
+- `a226343` docs: fix stale i18n path reference, update commit list and working tree state, remove outdated I18N-TOKENS-PLAN reference
 - `25ed5f5` docs: update handoff and AGENTS with Astro 7, Tailwind 4, i18n (en-first), and current state
 - `798e1e4` refactor(components): i18n all components, sync copy with PRD, add MVP note, rewrite Roadmap M1-M4, language-aware og meta
 - `10061c2` feat(pages): add 404, privacy, terms pages (EN at root, ZH at /zh/)
@@ -45,7 +49,9 @@ Demo 区用 localStorage（key：`jobagent_waitlist`）做内测预约；样式�
 - `2a3cd8f` feat(config): add sitemap, i18n routing (en-first), and tailwind vite plugin
 - `6fa90fa` chore(deps): upgrade to Astro 7, add Tailwind CSS 4 and sitemap
 
-`dev` 领先 `origin/dev` 7 个提交，未 push。工作区干净。
+`dev` 领先 `origin/dev` 4 个提交，未 push。工作区干净。
+
+**Tailwind 迁移已完成**（2026-09-11）：全部 7 个组件（Nav/Hero/Problem/Solution/Moat/Roadmap/Demo）+ Layout 页脚已从自定义 CSS 类迁移到 Tailwind utility；`global.css` 从 17KB 精简到 5.3KB，仅保留 `@theme` token、landing-ui 覆盖、基础样式、共享原语（`.container`/`.eyebrow`/`h2`/`.sub`/`.mvp-note`/`.btn`）、Hero 复杂渐变背景与渐变文字、进度条（`.bar`）、legal 页面样式。响应式断点使用 arbitrary 值（`max-[640px]`/`max-[960px]`）与原行为精确对齐。构建验证通过，8 页 + 中英文 og 图全部生成，视觉零变化。
 
 部署：Cloudflare Pages（Git 集成）已上线，配置与 work-learn-landing 一致（build command
 `npx playwright install chromium && npm run build`，env `NODE_VERSION=22` + `PLAYWRIGHT_BROWSERS_PATH=0`），
@@ -55,8 +61,9 @@ Production branch 为 `main`，`dev` 推送只出 preview。
 - **Commit message 一律用英文**（Conventional Commits）。
 - **与其他 `*-landing` 站点对齐**：依赖 `@bay/landing-ui`，Nav 和 Footer 必须包含 `BayjfLink` + `StarOnGithub`。新增共享元素优先从 landing-ui 取，不手抄。
 - **i18n**：所有用户可见文案必须走 `src/i18n/ui.ts` 翻译字典，新增 key 必须同时补 `zh` 和 `en`；组件通过 `getLangFromUrl(Astro.url)` 自动检测语言，不要硬编码语言判断；英文页在根路径（无前缀），中文页在 `/zh/`。
-- **Tailwind CSS 4**：design token 在 `global.css` 的 `@theme { ... }` 块中定义（`--color-*`、`--font-*`、`--radius-*` 等），新增颜色/间距先检查 `@theme` 是否已有；组件保留自定义 CSS 类（与其他 landing 混合模式一致），新组件可按需用 Tailwind utility。
+- **Tailwind CSS 4**：design token 在 `global.css` 的 `@theme { ... }` 块中定义（`--color-*`、`--font-*`、`--radius-*` 等），新增颜色/间距先检查 `@theme` 是否已有；组件优先使用 Tailwind utility，仅复杂视觉（多层渐变背景、渐变文字、伪元素、进度条）保留在 `global.css`。响应式断点优先用 arbitrary 值（`max-[640px]`/`max-[960px]`）以精确匹配设计稿。
 - 品牌色通过 `--lui-accent` / `--lui-accent-hover` 覆盖；站点为浅色主题，需同时覆盖 `--lui-surface` / `--lui-border`（landing-ui 默认 dark-first）。
+- **og:image 机制**：og 图 = 首屏截图，由 `scripts/shot.mjs` 用 Playwright 截取（1280×800，16:10），输出 `dist/preview-zh.png` / `dist/preview-en.png`，`Layout.astro` 按语言引用。格式（尺寸比例）已与 hub 站对齐；视觉风格待 MVP 后产品视觉定稿再统一，当前不需要改动。
 - 产品工程约定以 `job-agent` 仓库的 AGENTS.md 为准（本仓库只维护落地页自身的约定）。
 - 改域名需同步 `astro.config.mjs` 的 `site` 与 `src/layouts/Layout.astro` 的 og:image / og:url（og 已按语言切换：中文 `preview-zh.png`，英文 `preview-en.png`）。
 - 本机 Node v22 已验证；Astro 7 要求 Node >= 22.12.0。
@@ -64,6 +71,7 @@ Production branch 为 `main`，`dev` 推送只出 preview。
 - Demo 表单收集的 GitHub 用户名仅存于用户浏览器 localStorage（`jobagent_waitlist`），不上传服务器——隐私政策已披露。
 
 ## 下一步
-1. 落地页文案随 `job-agent` 产品迭代同步（Demo 预约体验等数字型/功能型文案易过期）。
-2. 产品 MVP 起步后，把落地页 og 图视觉风格与 hub 站（bayjf）产品卡片封面进一步对齐（当前 og 图为 16:10 首屏截图，格式已对齐，视觉风格待 MVP 后统一）。
-3. 组件逐步从自定义 CSS 类迁移到 Tailwind utility（当前为混合模式，不阻塞功能）。
+1. ~~组件逐步从自定义 CSS 类迁移到 Tailwind utility~~ **已完成**（2026-09-11，3 个原子提交，global.css 从 17KB 精简到 5.3KB）。
+2. 落地页文案随 `job-agent` 产品迭代同步（Demo 预约体验等数字型/功能型文案易过期）。
+3. 产品 MVP 起步后，把落地页 og 图视觉风格与 hub 站（bayjf）产品卡片封面进一步统一（当前 og 图为 16:10 首屏截图，格式已对齐，视觉风格待 MVP 后统一）。
+4. `dev` 分支领先 `origin/dev` 4 个提交，待用户确认后 push。

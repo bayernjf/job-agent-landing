@@ -48,17 +48,17 @@ const {
     <main>
       <slot />
     </main>
-    <footer>
-      <div class="container foot">
+    <footer class="border-t border-border py-10 pb-12">
+      <div class="container flex flex-wrap items-center justify-between gap-5 text-[13px] text-ink-3">
         <div>{t('footer.copyright')}</div>
-        <div class="foot-ext">
-          <BayjfLink size={16} class="foot-bayjf" />
-          <StarOnGithub href="https://github.com/bayernjf/job-agent" size={14} class="foot-star" />
+        <div class="flex items-center gap-3.5">
+          <BayjfLink size={16} class="inline-flex items-center text-[12px] font-medium text-ink-3 no-underline hover:text-ink-2" />
+          <StarOnGithub href="https://github.com/bayernjf/job-agent" size={14} class="text-ink-3 hover:text-ink-2" />
         </div>
-        <div class="foot-links">
-          <a href={localizePath('/privacy', lang)}>{t('footer.privacy')}</a>
-          <a href={localizePath('/terms', lang)}>{t('footer.terms')}</a>
-          <a href={localizePath('/#top', lang)}>{t('footer.backToTop')}</a>
+        <div class="flex flex-wrap items-center gap-4">
+          <a href={localizePath('/privacy', lang)} class="text-ink-2 no-underline hover:text-ink">{t('footer.privacy')}</a>
+          <a href={localizePath('/terms', lang)} class="text-ink-2 no-underline hover:text-ink">{t('footer.terms')}</a>
+          <a href={localizePath('/#top', lang)} class="text-ink-2 no-underline hover:text-ink">{t('footer.backToTop')}</a>
         </div>
       </div>
     </footer>
