@@ -22,7 +22,7 @@ Demo 区用 localStorage（key：`jobagent_waitlist`）做内测预约；样式�
 | 共享组件 | `@bay/landing-ui` v1.5.0：Nav / Footer 统一使用 `BayjfLink` + `StarOnGithub` |
 | i18n | Astro 内置 i18n，翻译字典 `src/i18n/ui.ts`（`getLangFromUrl` / `useTranslations` / `localizePath` / `getAltLangPath`） |
 | SEO | `@astrojs/sitemap`（含 i18n locale 映射） |
-| 交互 | 原生 JS（Demo 内测预约表单，`localStorage` key：`jobagent_waitlist`，按 URL 路径 `/en` 切换中英文提示） |
+| 交互 | 原生 JS（Demo 内测预约表单，`localStorage` key：`jobagent_waitlist`，按 URL 路径 `/zh` 检测中文，英文在根路径） |
 | Node / 包管理 | >= 22.12.0（本机 v22）/ npm |
 
 ## 页面结构
@@ -37,16 +37,15 @@ Demo 区用 localStorage（key：`jobagent_waitlist`）做内测预约；样式�
 
 ## 当前状态（分支 dev）
 最近提交：
-- `2f28cb8` docs(agents): document landing-ui alignment conventions
-- `7b89185` feat(footer): integrate BayjfLink and StarOnGithub
-- `d6ce0ae` feat(nav): integrate BayjfLink and StarOnGithub
-- `69c3f02` style(global): import landing-ui tokens and add shared component styles
-- `96b9030` chore(deps): add @bay/landing-ui v1.5.0
-- `87c6e3a` fix: replace authenticity percentage with graded badge
+- `25ed5f5` docs: update handoff and AGENTS with Astro 7, Tailwind 4, i18n (en-first), and current state
+- `798e1e4` refactor(components): i18n all components, sync copy with PRD, add MVP note, rewrite Roadmap M1-M4, language-aware og meta
+- `10061c2` feat(pages): add 404, privacy, terms pages (EN at root, ZH at /zh/)
+- `833418c` feat(i18n): add bilingual translation dictionary and i18n utility functions
+- `47ab531` style(global): rewrite with Tailwind 4 @theme tokens, add legal/404/mvp-note/nav-lang styles
+- `2a3cd8f` feat(config): add sitemap, i18n routing (en-first), and tailwind vite plugin
+- `6fa90fa` chore(deps): upgrade to Astro 7, add Tailwind CSS 4 and sitemap
 
-**工作区有未提交改动**（任务 1-10：基线页面、文案同步 PRD、Astro 7+Tailwind 4 升级、i18n 英文版、og 图语言感知），待按原子规则提交。
-
-`dev` 领先 `origin/dev` 若干提交，未 push。
+`dev` 领先 `origin/dev` 7 个提交，未 push。工作区干净。
 
 部署：Cloudflare Pages（Git 集成）已上线，配置与 work-learn-landing 一致（build command
 `npx playwright install chromium && npm run build`，env `NODE_VERSION=22` + `PLAYWRIGHT_BROWSERS_PATH=0`），

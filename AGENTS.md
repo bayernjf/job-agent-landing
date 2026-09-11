@@ -34,7 +34,6 @@ npm run preview   # 预览 dist
 - 品牌色通过 `--lui-accent` / `--lui-accent-hover` 覆盖；站点为浅色主题，需同时覆盖 `--lui-surface` / `--lui-border`（landing-ui 默认 dark-first）。
 - `astro.config.mjs` 的 `site` 为 `https://job-agent.bayjf.com`。
 - 部署细节见 `docs/DEPLOYMENT.md`；未部署前不编造线上地址。
-- i18n（en 默认 + `/zh`）与设计 token 收敛到 `--lui-*` 的方案见 `docs/I18N-TOKENS-PLAN.md`；实施前先读，本文档的「单语 / 无 i18n」描述会在 P2 后失效。
 - 产品仓库：https://github.com/bayernjf/job-agent（工程约定以该仓库 AGENTS.md 为准）。
 
 ## 不要做的事
