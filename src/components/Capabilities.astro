@@ -1,0 +1,52 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section id="capabilities">
+  <div class="container">
+    <span class="eyebrow">{t('capabilities.eyebrow')}</span>
+    <h2>{t('capabilities.title')}</h2>
+    <p class="sub">{t('capabilities.sub')}</p>
+    <div class="mt-11 grid grid-cols-3 gap-[18px] max-[960px]:grid-cols-2 max-[640px]:grid-cols-1">
+      <div class="rounded-card border border-border bg-surface p-6">
+        <div class="mb-4 grid h-[42px] w-[42px] place-items-center rounded-[10px] bg-brand-soft text-[20px]">🤖</div>
+        <span class="mb-1.5 block text-[13px] font-bold uppercase tracking-wide text-brand-dark">{t('capabilities.card1.k')}</span>
+        <h3 class="mb-2 text-[17px] font-bold">{t('capabilities.card1.title')}</h3>
+        <p class="text-[14px] text-ink-2">{t('capabilities.card1.desc')}</p>
+      </div>
+      <div class="rounded-card border border-border bg-surface p-6">
+        <div class="mb-4 grid h-[42px] w-[42px] place-items-center rounded-[10px] bg-blue-50 text-[20px]">🔀</div>
+        <span class="mb-1.5 block text-[13px] font-bold uppercase tracking-wide text-brand-dark">{t('capabilities.card2.k')}</span>
+        <h3 class="mb-2 text-[17px] font-bold">{t('capabilities.card2.title')}</h3>
+        <p class="text-[14px] text-ink-2">{t('capabilities.card2.desc')}</p>
+      </div>
+      <div class="rounded-card border border-border bg-surface p-6">
+        <div class="mb-4 grid h-[42px] w-[42px] place-items-center rounded-[10px] bg-green-50 text-[20px]">🎯</div>
+        <span class="mb-1.5 block text-[13px] font-bold uppercase tracking-wide text-brand-dark">{t('capabilities.card3.k')}</span>
+        <h3 class="mb-2 text-[17px] font-bold">{t('capabilities.card3.title')}</h3>
+        <p class="text-[14px] text-ink-2">{t('capabilities.card3.desc')}</p>
+      </div>
+      <div class="rounded-card border border-border bg-surface p-6">
+        <div class="mb-4 grid h-[42px] w-[42px] place-items-center rounded-[10px] bg-amber-soft text-[20px]">📋</div>
+        <span class="mb-1.5 block text-[13px] font-bold uppercase tracking-wide text-brand-dark">{t('capabilities.card4.k')}</span>
+        <h3 class="mb-2 text-[17px] font-bold">{t('capabilities.card4.title')}</h3>
+        <p class="text-[14px] text-ink-2">{t('capabilities.card4.desc')}</p>
+      </div>
+      <div class="rounded-card border border-border bg-surface p-6">
+        <div class="mb-4 grid h-[42px] w-[42px] place-items-center rounded-[10px] bg-slate-100 text-[20px]">🧩</div>
+        <span class="mb-1.5 block text-[13px] font-bold uppercase tracking-wide text-brand-dark">{t('capabilities.card5.k')}</span>
+        <h3 class="mb-2 text-[17px] font-bold">{t('capabilities.card5.title')}</h3>
+        <p class="text-[14px] text-ink-2">{t('capabilities.card5.desc')}</p>
+      </div>
+      <div class="rounded-card border border-border bg-surface p-6">
+        <div class="mb-4 grid h-[42px] w-[42px] place-items-center rounded-[10px] bg-danger-soft text-[20px]">🔌</div>
+        <span class="mb-1.5 block text-[13px] font-bold uppercase tracking-wide text-brand-dark">{t('capabilities.card6.k')}</span>
+        <h3 class="mb-2 text-[17px] font-bold">{t('capabilities.card6.title')}</h3>
+        <p class="text-[14px] text-ink-2">{t('capabilities.card6.desc')}</p>
+      </div>
+    </div>
+  </div>
+</section>
