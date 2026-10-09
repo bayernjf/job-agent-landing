@@ -45,6 +45,7 @@ export const ui = {
     'nav.capabilities': '亮点',
     'nav.roadmap': '路线',
     'nav.cta': '生成能力画像',
+    'nav.app': '产品',
     'nav.langSwitch': 'English',
 
     // Hero
@@ -52,8 +53,8 @@ export const ui = {
     'hero.title1': '简历会说谎，',
     'hero.title2': '代码不会。',
     'hero.lead': 'GitHub 是开发者最真实的简历——代码、commit 历史、PR 协作，都是"做过的事"而不是"说过的话"。JobAgent 把仓库分析成可验证的能力画像，让企业招到真正做过的人，让求职者用作品证明自己。',
-    'hero.cta.primary': '免费生成能力画像',
-    'hero.cta.secondary': '了解双向闭环',
+    'hero.cta.primary': '进入完整产品',
+    'hero.cta.secondary': '免费生成能力画像',
     'hero.meta.evidence.title': '真实证据',
     'hero.meta.evidence.desc': 'commit · PR · Issue',
     'hero.meta.loop.title': '双向闭环',
@@ -222,6 +223,7 @@ export const ui = {
     'nav.capabilities': 'Highlights',
     'nav.roadmap': 'Roadmap',
     'nav.cta': 'Generate profile',
+    'nav.app': 'App',
     'nav.langSwitch': '简体中文',
 
     // Hero
@@ -229,8 +231,8 @@ export const ui = {
     'hero.title1': 'Resumes lie. ',
     'hero.title2': 'Code doesn\'t.',
     'hero.lead': 'GitHub is a developer\'s most truthful resume — code, commit history, and PR collaboration are things you\'ve done, not things you\'ve said. JobAgent turns repositories into verifiable ability profiles, so companies hire people who\'ve actually built things, and candidates prove themselves with their work.',
-    'hero.cta.primary': 'Generate a free ability profile',
-    'hero.cta.secondary': 'See the dual loop',
+    'hero.cta.primary': 'Open the full product',
+    'hero.cta.secondary': 'Generate a free ability profile',
     'hero.meta.evidence.title': 'Real Evidence',
     'hero.meta.evidence.desc': 'commits · PRs · Issues',
     'hero.meta.loop.title': 'Dual Loop',

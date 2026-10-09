@@ -3,6 +3,7 @@ import { getLangFromUrl, useTranslations, localizePath } from '../i18n/ui';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const appUrl = lang === 'zh' ? 'https://app.job-agent.bayjf.com/zh-CN/' : 'https://app.job-agent.bayjf.com/en/';
 ---
 
 <header class="hero">
@@ -16,8 +17,8 @@ const t = useTranslations(lang);
       </h1>
       <p class="mt-5 max-w-[560px] text-[18px] text-dark-muted">{t('hero.lead')}</p>
       <div class="mt-[34px] flex flex-wrap gap-3.5">
-        <a class="btn btn-primary" href={localizePath('/#demo', lang)}>{t('hero.cta.primary')}</a>
-        <a class="btn btn-ghost" href={localizePath('/#solution', lang)}>{t('hero.cta.secondary')}</a>
+        <a class="btn btn-primary" href={appUrl} target="_blank" rel="noopener noreferrer">{t('hero.cta.primary')}</a>
+        <a class="btn btn-ghost" href={localizePath('/#demo', lang)}>{t('hero.cta.secondary')}</a>
       </div>
       <div class="mt-[30px] flex flex-wrap gap-7">
         <div class="text-[14px] text-dark-faint"><b class="block text-[20px] text-dark-text">{t('hero.meta.evidence.title')}</b>{t('hero.meta.evidence.desc')}</div>
