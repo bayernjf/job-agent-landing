@@ -6,6 +6,7 @@ import { getLangFromUrl, useTranslations, localizePath, getAltLangPath } from '.
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const altPath = getAltLangPath(Astro.url, lang);
+const appUrl = lang === 'zh' ? 'https://app.job-agent.bayjf.com/zh-CN/' : 'https://app.job-agent.bayjf.com/en/';
 ---
 <nav class="sticky top-0 z-50 border-b border-border bg-bg/85 backdrop-blur-md" id="top">
   <div class="container flex h-16 items-center justify-between">
@@ -19,6 +20,7 @@ const altPath = getAltLangPath(Astro.url, lang);
       <li><a class="text-[15px] font-medium text-ink-2 no-underline hover:text-ink" href={localizePath('/#capabilities', lang)}>{t('nav.capabilities')}</a></li>
       <li><a class="text-[15px] font-medium text-ink-2 no-underline hover:text-ink" href={localizePath('/#moat', lang)}>{t('nav.moat')}</a></li>
       <li><a class="text-[15px] font-medium text-ink-2 no-underline hover:text-ink" href={localizePath('/#roadmap', lang)}>{t('nav.roadmap')}</a></li>
+      <li><a class="text-[15px] font-semibold text-ink no-underline hover:text-ink" href={appUrl} target="_blank" rel="noopener noreferrer">{t('nav.app')}</a></li>
     </ul>
     <div class="flex items-center gap-3">
       <BayjfLink size={18} class="inline-flex items-center text-[13px] font-medium text-ink-2 no-underline hover:text-ink" />
