@@ -1,0 +1,60 @@
+# JobAgent
+
+> JobAgent is an AI-era hiring and job-seeking platform built on real work evidence. It analyzes public behavioral signals on GitHub and Gitee — code, commit history, and PR collaboration — into verifiable Ability Profiles, so companies hire people who have actually built things and candidates prove themselves with their work. It is not a resume-polishing tool or a single-score credit rating; every claim is backed by clickable, reviewable evidence, and AI-generated repositories, inflated stars, and padded commits are graded for authenticity.
+
+## One-line Positioning
+
+**Resumes lie. Code doesn't.** JobAgent treats GitHub as a developer's most truthful resume and serves both sides — hiring and applying — around the same real work trail: companies move from screening resumes to verifying evidence, while candidates turn GitHub into a living resume.
+
+## The Problem
+
+1. Resumes can be mass-generated, polished, or fabricated by AI, so screening really measures copywriting, not work ability.
+2. Interviews can be gamed with canned questions, disconnecting interview performance from real on-the-job ability.
+3. GitHub itself is polluted by AI: one-click template repos, inflated stars, and padded commits.
+4. Resume volume explodes alongside misinformation, sharply raising verification and time costs for hiring teams.
+
+The antidote isn't more resume data — it is verifiable, real work evidence.
+
+## The Dual Loop
+
+- **Hiring side (B2B)**: post a job (tech stack, ability tags, project requirements) → match and rank ability profiles against requirements → generate interview questions from the candidate's own repositories ("why did you design it this way").
+- **Applying side (B2C)**: authorize GitHub/Gitee via OAuth → authenticity verification plus deep analysis (code, activity, collaboration) → ability tags, improvement suggestions, job recommendations, and one-click apply.
+- Interview feedback feeds back into improvement suggestions; the ability profile keeps updating, creating a long-term loop.
+
+## Core Capabilities (Live)
+
+1. **Detects the AI-agent-era skill set**: a taxonomy covering ai agents, MCP, RAG, function calling, LLM serving, and more, normalized from code and GitHub topics.
+2. **GitHub + Gitee dual-source evidence**: analyze both public activity trails in one run, with automatic cross-source mirror de-duplication.
+3. **Authenticity grades, not one score**: a dozen-plus signals — author consistency, star inflation, commit bursts, self-merged PRs, external collaboration — map to four grades (likely / mixed / suspicious / insufficient), each traceable.
+4. **Job matching + tailored resumes**: an aggregated remote-job pool is ranked against your skills with per-skill reasons; generate role-tailored zh/en resumes in one click (optional AI polish that reorders facts, never invents them).
+5. **One-click ATS fill extension**: a Chrome extension reads the profile inside Greenhouse, Lever, and other ATS pages to auto-fill skills and experience.
+6. **Read-only MCP surface**: standard read-only MCP tools for AI agents and IDEs — get profile, resolve by subject, search jobs, match profile to job; keyed access, no raw evidence by default, and never triggers analysis.
+
+## Verification Engine (Moat)
+
+- Detect one-click generated / template-cloned shell repositories.
+- Analyze commit-time distribution, contributor structure, and star-growth curves to spot inflation and anomalous commits.
+- Verify real PR / Issue collaboration records: code merged in real projects and discussions joined are more persuasive than self-description.
+
+## Roadmap (M1–M4)
+
+- **M1 Analysis Core + Report (current MVP)**: L0/L1 API-only pipeline (no clone), AbilityProfile v0.1, authenticity grading + evidence, real-project interview questions, landing demo connected to the real engine.
+- **M2 Self-claim + Light B-side (live)**: OAuth claim of own profiles, improvement suggestions, recruiter declaration, and a public concise view.
+- **M3 Two-sided Loop (partly live)**: job-pool aggregation, matching/ranking, job recommendations, tailored resumes, and application tracking; enterprise SaaS subscriptions and interview-outcome feedback remain planned.
+- **M4 System Layer**: Gitee dual-source fusion is live; L2 clone static analysis (sandboxed), L4 cross-repo identity aggregation, and non-technical multi-evidence sources are planned.
+
+## Boundaries and Constraints
+
+- Analysis is based on public activity, with no login required; self-claim requires OAuth authorization.
+- It outputs graded authenticity with traceable signals rather than a single "truth percentage".
+- Tailored resumes reorder facts but never invent experience; the MCP surface is read-only, exposes no raw evidence by default, and never triggers analysis.
+
+## Key Links
+
+- [English Home](https://job-agent.bayjf.com/)
+- [中文首页](https://job-agent.bayjf.com/zh/)
+- [Full Product (English)](https://app.job-agent.bayjf.com/en/)
+- [Full Product (中文)](https://app.job-agent.bayjf.com/zh-CN/)
+- [Privacy](https://job-agent.bayjf.com/privacy)
+- [Terms](https://job-agent.bayjf.com/terms)
+- [Source](https://github.com/bayernjf/job-agent)
