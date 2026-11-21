@@ -202,6 +202,7 @@ export const ui = {
     // Footer
     'footer.copyright': '© 2026 JobAgent',
     'footer.backToTop': '回到顶部',
+    'footer.caseStudy': '案例页',
     'footer.privacy': '隐私政策',
     'footer.terms': '服务条款',
 
@@ -380,6 +381,7 @@ export const ui = {
     // Footer
     'footer.copyright': '© 2026 JobAgent',
     'footer.backToTop': 'Back to top',
+    'footer.caseStudy': 'Case study',
     'footer.privacy': 'Privacy',
     'footer.terms': 'Terms',
 

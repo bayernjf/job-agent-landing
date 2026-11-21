@@ -15,6 +15,7 @@ const t = useTranslations(lang);
 
 const ogImage = lang === 'zh' ? 'https://job-agent.bayjf.com/preview-zh.png' : 'https://job-agent.bayjf.com/preview-en.png';
 const siteUrl = 'https://job-agent.bayjf.com';
+const caseUrl = lang === 'zh' ? 'https://bayjf.com/zh/products/job-agent/' : 'https://bayjf.com/products/job-agent/';
 const currentPath = Astro.url.pathname;
 const canonicalUrl = `${siteUrl}${currentPath === '/' ? '/' : currentPath}`;
 const enPath = lang === 'zh' ? (currentPath.replace(/^\/zh/, '') || '/') : currentPath;
@@ -66,6 +67,7 @@ const {
           <StarOnGithub href="https://github.com/bayernjf/job-agent" size={14} class="text-ink-3 hover:text-ink-2" />
         </div>
         <div class="flex flex-wrap items-center gap-4">
+          <a href={caseUrl} class="text-ink-2 no-underline hover:text-ink">{t('footer.caseStudy')}</a>
           <a href={localizePath('/privacy', lang)} class="text-ink-2 no-underline hover:text-ink">{t('footer.privacy')}</a>
           <a href={localizePath('/terms', lang)} class="text-ink-2 no-underline hover:text-ink">{t('footer.terms')}</a>
           <a href={localizePath('/#top', lang)} class="text-ink-2 no-underline hover:text-ink">{t('footer.backToTop')}</a>
