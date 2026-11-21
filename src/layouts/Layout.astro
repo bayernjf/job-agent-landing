@@ -14,7 +14,13 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const ogImage = lang === 'zh' ? 'https://job-agent.bayjf.com/preview-zh.png' : 'https://job-agent.bayjf.com/preview-en.png';
-const ogUrl = lang === 'zh' ? 'https://job-agent.bayjf.com/zh' : 'https://job-agent.bayjf.com';
+const siteUrl = 'https://job-agent.bayjf.com';
+const currentPath = Astro.url.pathname;
+const canonicalUrl = `${siteUrl}${currentPath === '/' ? '/' : currentPath}`;
+const enPath = lang === 'zh' ? (currentPath.replace(/^\/zh/, '') || '/') : currentPath;
+const zhPath = lang === 'zh' ? currentPath : `/zh${currentPath === '/' ? '/' : currentPath}`;
+const enUrl = `${siteUrl}${enPath}`;
+const zhUrl = `${siteUrl}${zhPath}`;
 
 const {
   title = lang === 'zh'
@@ -39,9 +45,13 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:url" content={ogUrl} />
+    <meta property="og:url" content={canonicalUrl} />
     <meta name="twitter:card" content="summary_large_image" />
     <title>{title}</title>
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="zh-CN" href={zhUrl} />
+    <link rel="alternate" hreflang="x-default" href={enUrl} />
   </head>
   <body>
     <Nav />
