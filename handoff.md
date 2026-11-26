@@ -2,6 +2,18 @@
 
 更新时间：2026-09-11
 
+## 待办登记（标准）
+
+> 本段是本仓唯一活跃待办入口；详细背景见下方原有章节。
+> 最近同步：2026-11-26
+
+<!-- tier:todos v1 -->
+| id | title | status | priority | owner | next | evidence | updated |
+|---|---|---|---|---|---|---|---|
+| JAL-01 | 文案随 job-agent 产品迭代对账 | open | p2 | self | Demo 预约体验等数字型/功能型文案易过期 | `handoff.md` 下一步 2 | 2026-09-11 |
+| JAL-02 | OG 视觉与 hub 产品卡统一 | open | p3 | self | MVP 后统一 OG 图视觉风格 | `handoff.md` 下一步 3 | 2026-09-11 |
+<!-- /tier:todos -->
+
 ## 项目概况
 JobAgent 落地页：以 GitHub 为桥梁的智能招聘平台（把仓库分析成可信、可解释、可复核的能力画像，服务企业与求职者）。
 Astro 7 静态站点（`output: 'static'`），中英双语 i18n（defaultLocale=`en`，英文在根路径，中文在 `/zh/`），无 React island；
